@@ -1,0 +1,16 @@
+vaadin:
+    launch-browser: true
+spring:
+    application:
+        name: alerts-vaadin
+
+    jpa:
+        show-sql: true
+        hibernate.ddl-auto: create-drop
+    datasource:
+        url: jdbc:h2:file:./database
+        username: sa
+        password: password
+    h2:
+        console:
+            enabled: true
