@@ -65,6 +65,7 @@ public class AlertGrid extends Composite<Grid<Alert>> {
                 )
             );
 
+        refreshItems();
         return grid;
     }
 

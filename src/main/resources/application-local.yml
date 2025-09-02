@@ -14,3 +14,13 @@ spring:
     h2:
         console:
             enabled: true
+
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: antoine.haz@gmail.com
+        password: ${GOOGLE_PASSWORD}
+        properties:
+            mail.smtp.auth: true
+            mail.smtp.starttls.enable: true
+            mail.debug: true
