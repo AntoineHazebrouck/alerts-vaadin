@@ -6,7 +6,7 @@ spring:
 
     jpa:
         show-sql: true
-        # hibernate.ddl-auto: 
+        hibernate.ddl-auto: create-only
     datasource:
         url: ${DATABASE_URL}
         username: sa
