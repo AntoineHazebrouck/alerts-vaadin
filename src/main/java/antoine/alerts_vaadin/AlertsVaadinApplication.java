@@ -2,6 +2,7 @@ package antoine.alerts_vaadin;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
+import java.util.TimeZone;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -12,6 +13,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AlertsVaadinApplication implements AppShellConfigurator {
 
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+02:00"));
+
         var context = SpringApplication.run(
             AlertsVaadinApplication.class,
             args
