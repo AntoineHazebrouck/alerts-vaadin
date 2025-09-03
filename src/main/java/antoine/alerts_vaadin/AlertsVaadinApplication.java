@@ -17,6 +17,6 @@ public class AlertsVaadinApplication implements AppShellConfigurator {
             AlertsVaadinApplication.class,
             args
         );
-        context.getBean(AlertsScheduler.class).refresh();
+        context.getBean(AlertsScheduler.class).refresh(); 
     }
 }
