@@ -1,12 +1,15 @@
 package antoine.alerts_vaadin.views.home;
 
-import antoine.alerts_vaadin.repositories.AlertsRepository;
+import antoine.alerts_vaadin.entities.Alert;
+import antoine.alerts_vaadin.services.FindAllAlerts;
+import antoine.alerts_vaadin.services.SaveAlert;
 import antoine.alerts_vaadin.views.home.components.AlertForm;
 import antoine.alerts_vaadin.views.home.components.AlertGrid;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import java.util.function.Consumer;
 
 @Route("")
 public class HomeView extends Composite<VerticalLayout> {
@@ -14,12 +17,13 @@ public class HomeView extends Composite<VerticalLayout> {
     AlertGrid grid;
     AlertForm form;
 
-    public HomeView(AlertsRepository alerts) {
-        this.grid = new AlertGrid(alerts);
-        this.form = new AlertForm(newAlert -> {
-            alerts.save(newAlert);
-            grid.refreshItems();
-        });
+    public HomeView(SaveAlert saveAlert, FindAllAlerts findAllAlerts) {
+        Consumer<Alert> saveAndRefreshGrid = newAlert -> {
+            saveAlert.apply(newAlert);
+            grid.refreshItems(findAllAlerts);
+        };
+        this.grid = new AlertGrid(saveAndRefreshGrid);
+        this.form = new AlertForm(saveAndRefreshGrid);
     }
 
     @Override

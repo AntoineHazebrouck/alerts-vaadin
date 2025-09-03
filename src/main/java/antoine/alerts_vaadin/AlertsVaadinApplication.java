@@ -1,6 +1,5 @@
 package antoine.alerts_vaadin;
 
-import antoine.alerts_vaadin.services.AlertsScheduler;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +16,6 @@ public class AlertsVaadinApplication implements AppShellConfigurator {
             AlertsVaadinApplication.class,
             args
         );
-        context.getBean(AlertsScheduler.class).refresh(); 
+        context.getBean(OnStartup.class).run();
     }
 }
