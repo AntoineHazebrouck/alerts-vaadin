@@ -3,7 +3,8 @@ spring:
     jpa:
         show-sql: true
         hibernate.ddl-auto: update
-    # datasource.
+    datasource:
+        driver-class-name: org.postgresql.Driver
 
     #     url: ${DATABASE_URL}
         # username: sa
