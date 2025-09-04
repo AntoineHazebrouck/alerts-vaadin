@@ -1,9 +1,10 @@
-debug: true
+# debug: true
 spring:
     jpa:
         show-sql: true
         hibernate.ddl-auto: validate
-    # datasource:
+    # datasource.
+
     #     url: ${DATABASE_URL}
         # username: sa
         # password: password
