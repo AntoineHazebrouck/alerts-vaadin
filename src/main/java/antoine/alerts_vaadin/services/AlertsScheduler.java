@@ -1,6 +1,7 @@
 package antoine.alerts_vaadin.services;
 
 import antoine.alerts_vaadin.entities.Alert;
+import java.util.TimeZone;
 import java.util.concurrent.ScheduledFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,10 @@ public class AlertsScheduler {
                 email.setText(alert.getMessage());
                 emails.send(email);
             },
-            new CronTrigger(alert.getCron())
+            new CronTrigger(
+                alert.getCron(),
+                TimeZone.getTimeZone("Europe/Paris")
+            )
         );
         log.info(
             "Scheduling alert with id {} and cron {}",
