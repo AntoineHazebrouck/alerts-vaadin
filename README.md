@@ -9,7 +9,8 @@ heroku logs --tail --app alerts-vaadin
 ## All sql updates history
 
 ```shell
-heroku pg:psql postgresql-lively-33193 --app alerts-vaadin
+heroku pg:info postgresql-rigid-24409 --app alerts-vaadin
+heroku pg:psql postgresql-rigid-24409 --app alerts-vaadin
 ```
 
 ```sql
