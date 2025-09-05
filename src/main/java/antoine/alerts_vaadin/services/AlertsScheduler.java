@@ -1,6 +1,8 @@
 package antoine.alerts_vaadin.services;
 
 import antoine.alerts_vaadin.entities.Alert;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.ScheduledFuture;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,9 @@ public class AlertsScheduler {
 
     private final TaskScheduler scheduler;
     private final JavaMailSender emails;
+
+    // alert id -> task
+    private final Map<Integer, ScheduledFuture<?>> schedule = new HashMap<>();
 
     public ScheduledFuture<?> schedule(Alert alert) {
         var task = scheduler.schedule(
@@ -41,6 +46,13 @@ public class AlertsScheduler {
             alert.getId(),
             alert.getCron()
         );
+        schedule.put(alert.getId(), task);
         return task;
+    }
+
+    public void cancel(Alert alert) {
+        var task = schedule.get(alert.getId());
+        task.cancel(true);
+        schedule.remove(alert.getId());
     }
 }
