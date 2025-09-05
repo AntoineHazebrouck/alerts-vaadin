@@ -20,9 +20,9 @@ public class HomeView extends Composite<VerticalLayout> {
     public HomeView(SaveAlert saveAlert, FindAllAlerts findAllAlerts) {
         Consumer<Alert> saveAndRefreshGrid = newAlert -> {
             saveAlert.apply(newAlert);
-            grid.refreshItems(findAllAlerts);
+            grid.refreshItems();
         };
-        this.grid = new AlertGrid(saveAndRefreshGrid);
+        this.grid = new AlertGrid(saveAndRefreshGrid, findAllAlerts);
         this.form = new AlertForm(saveAndRefreshGrid);
     }
 

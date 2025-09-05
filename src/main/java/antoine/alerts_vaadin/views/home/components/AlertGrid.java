@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class AlertGrid extends Composite<Grid<Alert>> {
 
     private final Consumer<Alert> saveAndRefreshGrid;
+    private final FindAllAlerts findAllAlerts;
 
     Grid<Alert> grid = new Grid<>(Alert.class, false);
 
@@ -65,11 +66,11 @@ public class AlertGrid extends Composite<Grid<Alert>> {
                 )
             );
 
-        // refreshItems();
+        grid.setItems(findAllAlerts.get()).setIdentifierProvider(Alert::getId);
         return grid;
     }
 
-    public void refreshItems(FindAllAlerts findAllAlerts) {
+    public void refreshItems() {
         grid.setItems(findAllAlerts.get()).setIdentifierProvider(Alert::getId);
     }
 }
