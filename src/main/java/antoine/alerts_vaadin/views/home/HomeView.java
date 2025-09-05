@@ -1,8 +1,9 @@
 package antoine.alerts_vaadin.views.home;
 
 import antoine.alerts_vaadin.entities.Alert;
-import antoine.alerts_vaadin.services.FindAllAlerts;
-import antoine.alerts_vaadin.services.SaveAlert;
+import antoine.alerts_vaadin.services.command.DeleteAlert;
+import antoine.alerts_vaadin.services.command.SaveAlert;
+import antoine.alerts_vaadin.services.queries.FindAllAlerts;
 import antoine.alerts_vaadin.views.home.components.AlertForm;
 import antoine.alerts_vaadin.views.home.components.AlertGrid;
 import com.vaadin.flow.component.Composite;
@@ -17,12 +18,20 @@ public class HomeView extends Composite<VerticalLayout> {
     AlertGrid grid;
     AlertForm form;
 
-    public HomeView(SaveAlert saveAlert, FindAllAlerts findAllAlerts) {
+    public HomeView(
+        SaveAlert saveAlert,
+        FindAllAlerts findAllAlerts,
+        DeleteAlert deleteAlert
+    ) {
         Consumer<Alert> saveAndRefreshGrid = newAlert -> {
-            saveAlert.apply(newAlert);
+            saveAlert.execute(newAlert);
             grid.refreshItems();
         };
-        this.grid = new AlertGrid(saveAndRefreshGrid, findAllAlerts);
+        this.grid = new AlertGrid(
+            saveAndRefreshGrid,
+            findAllAlerts,
+            deleteAlert
+        );
         this.form = new AlertForm(saveAndRefreshGrid);
     }
 

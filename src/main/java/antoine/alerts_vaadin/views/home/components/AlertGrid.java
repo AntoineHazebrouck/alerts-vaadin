@@ -1,8 +1,10 @@
 package antoine.alerts_vaadin.views.home.components;
 
 import antoine.alerts_vaadin.entities.Alert;
-import antoine.alerts_vaadin.services.FindAllAlerts;
+import antoine.alerts_vaadin.services.command.DeleteAlert;
+import antoine.alerts_vaadin.services.queries.FindAllAlerts;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.editor.Editor;
@@ -17,6 +19,7 @@ public class AlertGrid extends Composite<Grid<Alert>> {
 
     private final Consumer<Alert> saveAndRefreshGrid;
     private final FindAllAlerts findAllAlerts;
+    private final DeleteAlert deleteAlert;
 
     Grid<Alert> grid = new Grid<>(Alert.class, false);
 
@@ -49,14 +52,12 @@ public class AlertGrid extends Composite<Grid<Alert>> {
             .setEditorComponent(cron);
 
         grid
-            .addComponentColumn(alert -> {
-                Button editButton = new Button("Edit");
-                editButton.addClickListener(e -> {
+            .addComponentColumn(alert ->
+                new Button("Edit", e -> {
                     if (editor.isOpen()) editor.cancel();
                     editor.editItem(alert);
-                });
-                return editButton;
-            })
+                })
+            )
             .setEditorComponent(
                 new HorizontalLayout(
                     new Button("Save", e -> {
@@ -65,6 +66,15 @@ public class AlertGrid extends Composite<Grid<Alert>> {
                     new Button(VaadinIcon.CLOSE.create(), e -> editor.cancel())
                 )
             );
+
+        grid
+            .addComponentColumn(alert ->
+                new Button("Delete", e -> {
+                    deleteAlert.execute(alert);
+                    refreshItems();
+                })
+            )
+            .setEditorComponent(new Button("Delete"));
 
         grid.setItems(findAllAlerts.get()).setIdentifierProvider(Alert::getId);
         return grid;
