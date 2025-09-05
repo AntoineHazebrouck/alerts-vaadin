@@ -4,8 +4,8 @@ import antoine.alerts_vaadin.entities.Alert;
 import antoine.alerts_vaadin.services.command.DeleteAlert;
 import antoine.alerts_vaadin.services.queries.FindAllAlerts;
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.editor.Editor;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -68,12 +68,14 @@ public class AlertGrid extends Composite<Grid<Alert>> {
             );
 
         grid
-            .addComponentColumn(alert ->
-                new Button("Delete", e -> {
+            .addComponentColumn(alert -> {
+                var delete = new Button("Delete", e -> {
                     deleteAlert.execute(alert);
                     refreshItems();
-                })
-            )
+                });
+                delete.addThemeVariants(ButtonVariant.LUMO_WARNING);
+                return delete;
+            })
             .setEditorComponent(new Button("Delete"));
 
         grid.setItems(findAllAlerts.get()).setIdentifierProvider(Alert::getId);
