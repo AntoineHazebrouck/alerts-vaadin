@@ -1,6 +1,7 @@
 package antoine.alerts_vaadin;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @Theme("my-theme")
+@PWA(name = "Alerts", shortName = "Alerts")
 public class AlertsVaadinApplication implements AppShellConfigurator {
 
     public static void main(String[] args) {
